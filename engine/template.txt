@@ -814,6 +814,7 @@ void process_command(void) {{
 
 void process_leader(void) {{
     in_leader_mode = false;
+    leader_ind = 0;
     for (int i = 0; i < NUMBER_OF_LEADER_COMBOS; i++) {{
         uint16_t trigger[LEADER_MAX_LENGTH];
         memcpy_P(trigger, leader_triggers[i], LEADER_MAX_LENGTH * sizeof(uint16_t));
