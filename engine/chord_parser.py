@@ -318,6 +318,8 @@ def add_simple_chord(pseudolayer, original_keycode, chord_keys):
             value1 = 0, 
             value2 = 0,
             function = "reset"))
+    else:
+        raise Exception(f"Unrecognized keycode {keycode}")
 
 def add_visual_chord(pseudolayer, keycode, chord, keys):
     sum_chord = [keys[i] for i, x in enumerate(chord) if x == "X" or x == "x"]
