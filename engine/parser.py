@@ -5,7 +5,7 @@ from engine.utils import *
 
 
 def parse_includes(keymap_def):
-    includes = [f"#include {file}" for file in keymap_def["extra_dependencies"]]
+    includes = [f'#include "{file}"' for file in keymap_def["extra_dependencies"]]
     return reduce(newline_separator, includes)
 
 def parse_new_keycodes(keymap_def):
@@ -38,8 +38,11 @@ def parse_new_keycodes(keymap_def):
 {enum}"""
 
 def parse_pseudolayers(keymap_def):
+    pseudolayers = keymap_def["pseudolayers"]
+    if not "ALWAYS_ON" in [layer["name"] for layer in pseudolayers]:
+        pseudolayers += [{"name": "ALWAYS_ON", "chords": []}] # the engine expects ALWAYS_ON to exist
     return f"""enum pseudolayers {{
-    {reduce(comma_separator, [pseudolayer["name"] for pseudolayer in keymap_def["pseudolayers"]])}
+    {reduce(comma_separator, [pseudolayer["name"] for pseudolayer in pseudolayers])}
 }};"""
 
 def parse_keyboard_parameters(keymap_def):
