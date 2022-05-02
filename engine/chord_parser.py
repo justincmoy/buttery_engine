@@ -354,6 +354,12 @@ def parse_chords(keymap_def):
     chord_list = reduce(comma_separator, [f"&chord_{i}" for i in range(len(chords))])
     strings = [f"\"{x}\"" for x in strings]
 
+    strings_reduced = ""
+    try:
+        strings_reduced = reduce(comma_separator, strings)
+    except TypeError:
+        pass
+
     result = f"""{reduce(newline_separator, chords)}
 #define NUMBER_OF_CHORDS {len(chords)}
 
@@ -362,7 +368,7 @@ const struct Chord* const list_of_chords[] PROGMEM = {{
 }};
 
 const char * const strings[] PROGMEM = {{
-    {reduce(comma_separator, strings)}
+    {strings_reduced}
 }};"""
 
     return result
