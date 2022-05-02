@@ -371,4 +371,14 @@ const char * const strings[] PROGMEM = {{
     {strings_reduced}
 }};"""
 
+    if strings_reduced:
+        result += """
+void string_in(const struct Chord* self) {{
+    if (*self->state == ACTIVATED) {{
+        char buffer[STRING_MAX_LENGTH];
+        strcpy_P(buffer, (char*)pgm_read_word(&(strings[self->value1])));
+        send_string(buffer);
+    }}
+}}"""
+
     return result
