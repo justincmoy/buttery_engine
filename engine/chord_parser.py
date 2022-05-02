@@ -318,6 +318,17 @@ def add_simple_chord(pseudolayer, original_keycode, chord_keys):
             value1 = 0, 
             value2 = 0,
             function = "reset"))
+    elif keycode.startswith("O("):
+        # TODO: something with one-shot layer.
+        keycode = expand_keycode(unpack_by_chars(original_keycode, '(', ')'))
+
+        chords.append(my_format(s = chord_without_counter,
+            index = len(chords),
+            on_pseudolayer = pseudolayer,
+            keycodes_hash = hash,
+            value1 = keycode,
+            value2 = 0,
+            function = "one_shot_key"))
     else:
         raise Exception(f"Unrecognized keycode {keycode}")
 
