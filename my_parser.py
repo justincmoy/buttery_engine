@@ -2,6 +2,8 @@
 
 import argparse
 import engine.keycodes
+import json
+import yaml
 from engine.parser import buttery_parser
 
 if __name__ == "__main__":
@@ -16,10 +18,17 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
+    with open(args.input, "r") as file:
+        try:
+            keymap_def = json.load(file)
+        except json.JSONDecodeError:
+            file.seek(0)
+            keymap_def = yaml.safe_load(file)
+
+    result = buttery_parser(keymap_def)
+
     with open('engine/template.txt', 'r') as file:
         template = file.read()
-
-    result = buttery_parser(args.input)
 
     keymap = template.format(
         includes = result["includes"],

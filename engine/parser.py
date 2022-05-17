@@ -1,4 +1,3 @@
-import json
 from functools import reduce
 from engine import chord_parser
 from engine.utils import *
@@ -119,10 +118,7 @@ void (*leader_functions[]) (void) = {{
 const uint16_t** const leader_triggers PROGMEM = NULL;
 void (*leader_functions[]) (void) = {};"""
 
-def buttery_parser(input_file):
-    with open(input_file, "r") as file:
-        keymap_def = json.load(file)
-
+def buttery_parser(keymap_def):
     result = {}
 
     result["includes"] = parse_includes(keymap_def)
