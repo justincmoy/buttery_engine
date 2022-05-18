@@ -349,6 +349,10 @@ def add_chord_set(pseudolayer, chord_sets, set_name, keycodes):
         if keycode != "":
             add_simple_chord(pseudolayer, keycode, chord_set["chords"][i])
 
+def add_chord_set_with_keycode(pseudolayer, keycodes):
+    for keycode in keycodes:
+        add_simple_chord(pseudolayer, keycode["keycode"], keycode["chord"])
+
 def parse_chords(keymap_def):
     global chords
     global strings
@@ -363,6 +367,8 @@ def parse_chords(keymap_def):
                 add_visual_array(pseudolayer["name"], chord["keys"], chord["dictionary"])
             elif chord["type"] == "chord_set":
                 add_chord_set(pseudolayer["name"], keymap_def["chord_sets"], chord["set"], chord["keycodes"])
+            elif chord["type"] == "chord_set_with_keycode":
+                add_chord_set_with_keycode(pseudolayer["name"], chord["keycodes"])
 
     chord_list = reduce(comma_separator, [f"&chord_{i}" for i in range(len(chords))])
     strings = [f"\"{x}\"" for x in strings]
