@@ -5,6 +5,7 @@ import engine.keycodes
 import json
 import yaml
 from engine.parser import buttery_parser
+from engine.kaleidoscope_parser import buttery_kaleidoscope_parser
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -25,9 +26,9 @@ if __name__ == "__main__":
             file.seek(0)
             keymap_def = yaml.safe_load(file)
 
-    result = buttery_parser(keymap_def)
+    result = buttery_kaleidoscope_parser(keymap_def)
 
-    with open('engine/template.txt', 'r') as file:
+    with open('engine/kaleidoscope_template.txt', 'r') as file:
         template = file.read()
 
     keymap = template.format(
@@ -41,5 +42,5 @@ if __name__ == "__main__":
         leader_sequences = result["leader_sequences"]
     )
 
-    with open('keymap.c', 'w') as file:
+    with open('keymap.ino', 'w') as file:
         file.write(keymap)
