@@ -1,4 +1,4 @@
-,/* -*- mode: c++ -*-
+/* -*- mode: c++ -*-
  * Kaleidoscope-MagicCombo -- Magic combo framework
  * Copyright (C) 2016, 2017, 2018  Keyboard.io, Inc
  *
@@ -18,40 +18,41 @@
 #include <Kaleidoscope.h>
 #include <Kaleidoscope-Macros.h>
 #include <Kaleidoscope-MagicCombo.h>
+#include <Kaleidoscope-MouseKeys.h>
 {includes}
 
-void simple_chord(uint8_t combo_index) {{
-  Macros.tap(chord_keys[combo_index]);
-}}
+void simple_chord(uint8_t combo_index);
 
 {chords}
+
+void simple_chord(uint8_t combo_index) {{
+  Macros.press(chord_keys[combo_index]);
+  Macros.release(chord_keys[combo_index]);
+}}
 
 // clang-format off
 KEYMAPS(
   [0] = KEYMAP_STACKED
   (
-    Key_NoKey, Key_1, Key_2, Key_3, Key_4, Key_5, Key_NoKey,
-    Key_Backtick,      Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
-    Key_PageUp,        Key_A, Key_S, Key_D, Key_F, Key_G,
-    Key_PageDown,      Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
+       // right
+       XXX, XXX, XXX, XXX, XXX,
+       XXX, XXX, XXX, XXX, XXX,
+       XXX, XXX, XXX, XXX, XXX, XXX,
+       XXX, XXX, XXX, XXX, XXX, XXX,
 
-    Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
-    Key_NoKey,
-
-    Key_skip,  Key_6, Key_7, Key_8,     Key_9,      Key_0,         Key_skip,
-    Key_Enter, Key_Y, Key_U, Key_I,     Key_O,      Key_P,         Key_Equals,
-               Key_H, Key_J, Key_K,     Key_L,      Key_Semicolon, Key_Quote,
-    Key_skip,  Key_N, Key_M, Key_Comma, Key_Period, Key_Slash,     Key_Minus,
-
-    Key_RightShift, Key_RightAlt, Key_Spacebar, Key_RightControl,
-    Key_NoKey),
+       // right
+       XXX, XXX, XXX, XXX, XXX,
+       XXX, XXX, XXX, XXX, XXX,
+       XXX, XXX, XXX, XXX, XXX, XXX,
+       XXX, XXX, XXX, XXX, XXX, XXX
+  )
 )
-// clang-format on
 
-KALEIDOSCOPE_INIT_PLUGINS(MagicCombo, Macros);
+KALEIDOSCOPE_INIT_PLUGINS(MagicCombo, Macros, MouseKeys);
 
 void setup() {{
   Kaleidoscope.setup();
+  MagicCombo.min_interval = 100;
 }}
 
 void loop() {{
